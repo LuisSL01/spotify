@@ -2,7 +2,7 @@ import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TrackModel } from '@core/models/tracks.model';
 import { Observable, of } from 'rxjs';
-import { map, mergeMap, tap} from 'rxjs/operators';
+import { map, mergeMap, tap, catchError} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 
@@ -33,6 +33,10 @@ export class TrackService {
       pipe(
         map(({data} : any) => {
             return data
+        }),
+        catchError((err)=>{
+          console.log('algo paso debes revisarme..');          
+          return of([])
         })
       )
   }
@@ -42,6 +46,10 @@ export class TrackService {
       pipe(
         //tap(data => console.log('ok ok ok- antes de',data)),
         mergeMap(({data} : any) => this.skipById(data, 2)),
+        catchError((err)=>{
+          console.log('algo paso debes revisarme..');          
+          return of([])
+        })
         //tap(data => console.log('ok ok ok',data))
         //map(({data} : any) => {return data.reverse()})
         //,map((dataRecibida)=>{return dataRecibida.filter((track:TrackModel)=>track._id !== 1)})
