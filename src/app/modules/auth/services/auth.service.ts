@@ -13,9 +13,11 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   sendCredentials(email: string, password: string): Observable<any> {
-    const body = { email, password };
-    console.log('ok ok', email, password);
+    const body = { email, password };    
     return this.http.post(`${this.URL}/auth/login`, body);
+  }
 
+  suma(a:number, b:number):number{
+    return a + b;
   }
 }

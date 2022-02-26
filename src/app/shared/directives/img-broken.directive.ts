@@ -5,11 +5,15 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 })
 export class ImgBrokenDirective {
 
-  @Input() customImg:string ='';
+  @Input() customImg:string|boolean =false;
   @HostListener('error') handleError():void{
     const elNative = this.elHost.nativeElement;
-    console.log('manejador de error->', this.elHost);
-    elNative.src = this.customImg;
+    
+    if(this.customImg){
+      elNative.src = this.customImg;
+    }else{
+      elNative.src = '/assets/images/image-broker.png';
+    }
   }
 
   constructor(private elHost:ElementRef) {    
